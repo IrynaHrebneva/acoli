@@ -27,7 +27,7 @@ SECRET_KEY = 'REDACTED'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["port-8000-acoli-container-schan269921221.preview.codeanywhere.com"]
+ALLOWED_HOSTS = ["port-8000-acoli-container-schan269921221.preview.codeanywhere.com", "127.0.0.1"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'acoliServer'
 ]
 
@@ -50,7 +51,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'acoliServer.urls'
 
@@ -79,6 +83,7 @@ WSGI_APPLICATION = 'acoliServer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'acoli.db',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
