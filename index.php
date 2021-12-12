@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 define("SITE_ADDR", "http://localhost:8000/");
 //include("./include.php");
@@ -5,7 +6,7 @@ $site_title = 'aqoli';
 ?>
 <html lang="en">
 <head>
-    
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@ $site_title = 'aqoli';
         <div class="home-content">
             <h1>Search Best Places To Live</h1>
             <div id='form'>
-                <form action='' method='get' class='form'>
+                <form method='get' class='form'>
                     <div class='form'>
                         <input
                             type='text'
@@ -51,16 +52,22 @@ $site_title = 'aqoli';
                 $k = trim($_GET['k']);
 
                 // create a base query and words string
-                $query_string = "SELECT city_name, region, country_name, wiki_url FROM cities NATURAL JOIN countries WHERE city_name ";
+		$query_string = "SELECT cities.city_id, city_name, region, country_name,
+			wiki_url, max_contributors
+			FROM cities NATURAL JOIN countries
+                        LEFT JOIN quality_of_life ON cities.city_id = quality_of_life.city_id
+                        WHERE city_name || ' ' || region || ' ' || country_name ";
 
                 $display_words = "";
                 // seperate each of the keywords
                 $keywords = explode(' ', $k);
                 foreach ($keywords as $word) {
-                    $query_string .= " LIKE '%" . $word . "%' AND city_name ";
+	            $query_string .= " LIKE '%" . $word
+		        . "%' AND city_name || ' ' || region || ' ' || country_name ";
                     $display_words .= $word . " ";
                 }
-                $query_string = substr($query_string, 0, strlen($query_string) - 14);
+		$query_string = substr($query_string, 0, strlen($query_string) - 55)
+		    . " ORDER BY max_contributors DESC";
 
                 // connect to the database
                 // commented out mysqli example to adapt our sqlite3 db
@@ -77,17 +84,19 @@ $site_title = 'aqoli';
                 // comment out mysqli $result_count to adapt sqlite3 compatible result_count
                 //$result_count = mysqli_num_rows($query);
 
-                $result_count_query_string = "SELECT COUNT(*) FROM cities WHERE city_name ";
+		$result_count_query_string = "SELECT COUNT(*) FROM cities
+			NATURAL JOIN countries
+                        WHERE city_name || ' ' || region || ' ' || country_name ";
                 error_log($result_count_query_string);
 
                 $display_words = "";
                 foreach ($keywords as $word) {
-                    $result_count_query_string .= " LIKE '%" . $word . "%' AND city_name ";
+                    $result_count_query_string .= " LIKE '%" . $word . "%' AND city_name || ' ' || region || ' ' || country_name ";
                     $display_words .= $word . " ";
                 }
                 $result_count_query_string = substr($result_count_query_string,
                                               0,
-                                              strlen($result_count_query_string) - 14);
+                                              strlen($result_count_query_string) - 55);
                 error_log($result_count_query_string);
 
                 // watch these next several lines for the hack-around to count results
@@ -115,7 +124,7 @@ $site_title = 'aqoli';
                         // adapted example with one that works with our db
                         echo '<tr>
                                   <td>
-                                    <h3><a href=https://en.wikipedia.org' . $row['wiki_url'] . '>' . $row['city_name'] . '</a></h3>
+                                    <h3><a href="./qualityoflife.php?city=' . $row['city_id'] . '">' . $row['city_name'] . '</a></h3>
                                   </td>
                                   <td>' . $row['region'] . '</td>
                                   <td><i>' . $row['country_name'] . '</i></td>
@@ -140,7 +149,7 @@ $site_title = 'aqoli';
                                             <img alt="Quality of life picture" src="quality.jpeg">
                                         </div>
                                         <div class="container">
-                                            <h4>Quality of life</h4>
+                                            <h2>Quality of life</h2>
                                             <p>Find information on quality of life, purchasing power, property price to income ratios, and more about cities of interest.</p>
                                             <button class="card_button" onClick="location.href='qualityoflife.php'">Search city by quality</button>
                                         </div>
@@ -152,7 +161,7 @@ $site_title = 'aqoli';
                                             <img alt="Quality of life picture" src="copmare.png">
                                         </div>
                                         <div class="container">
-                                            <h4>Compare cities</h4>
+                                            <h2>Compare cities</h2>
                                             <p>Compare cities on quality of life, cost of living, safety and more. Explore where to move based on your personal preferences.</p>
                                             <button class="card_button" onClick="location.href='citycompare.php'">Compare cities</button>
                                         </div>
@@ -164,7 +173,7 @@ $site_title = 'aqoli';
                                             <img alt="Quality of life picture" src="best_place.jpeg">
                                         </div>
                                         <div class="container">
-                                            <h4>Where is your best place?</h4>
+                                            <h2>Where is your best place?</h2>
                                             <p>You might ask yourself “Where should I live”? This quiz will help you find the top 10 places to live based on your priorities.</p>
                                             <button class="card_button" onClick="location.href='myplacequiz.php'">Take a quiz</button>
                                         </div>
@@ -173,7 +182,7 @@ $site_title = 'aqoli';
                             </div>
                         </div>
                     </div>
-            
+
     </div>
 
     <div class="footer">
