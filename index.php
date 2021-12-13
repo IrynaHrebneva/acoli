@@ -12,6 +12,7 @@ $site_title = 'aqoli';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $site_title; ?></title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="shortcut icon" type="image/jpg" href="website_logo.jpg"/>
 </head>
 
 <body>
@@ -19,6 +20,7 @@ $site_title = 'aqoli';
         <div class="left">
              <div class="title"> <a href="index.php">Aqoli</a></div>
           <ul class="navbar">
+            <li class="navbar-links"><a href="about.html">About</a></li>
             <li class="navbar-links"><a href="qualityoflife.php">Quality of Life</a></li>
             <li class="navbar-links"><a href="citycompare.php">City Compare</a></li>
             <li class="navbar-links"><a href="myplacequiz.php">My Place Quiz</a></li>
@@ -186,9 +188,9 @@ $site_title = 'aqoli';
     </div>
 
     <div class="footer">
-        <ul class="bottom-links">
-          <li>About Us</li>
-          <li>Contact Information</li>
+	<ul class="bottom-links">
+          <li class="footer-links"><a href="aboutus.html">About Us</a></li>
+          <li><a href="mailto:aqoli2021info@gmail.com">Contact Us</a></li>
           <li>Copyright © 2021 by CCSF</li>
         </ul>
     </div>

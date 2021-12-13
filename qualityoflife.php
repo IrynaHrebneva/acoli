@@ -6,12 +6,12 @@ $site_title = 'aqoli - Quality of Life';
 ?>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $site_title; ?></title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="shortcut icon" type="image/jpg" href="website_logo.jpg"/>
     <script src="citysuggestions.js"></script>
 </head>
 <body>
@@ -19,6 +19,7 @@ $site_title = 'aqoli - Quality of Life';
         <div class="left">
             <div class="title"> <a href="index.php">Aqoli</a></div>
           <ul class="navbar">
+            <li class="navbar-links"><a href="about.html">About</a></li>
             <li class="navbar-links"><a href="qualityoflife.php">Quality of Life</a></li>
             <li class="navbar-links"><a href="citycompare.php">City Compare</a></li>
             <li class="navbar-links"><a href="myplacequiz.php">My Place Quiz</a></li>
@@ -167,7 +168,7 @@ $site_title = 'aqoli - Quality of Life';
 				echo "</td></tr></table>";
 
                             } else
-                                echo 'No results found for ' . $city .'. Please search something else.';
+                                echo '<div id="noResult">No results found for ' . $city .'. Please search something else.</div>';
                         } else
                             echo '';
 
@@ -183,8 +184,8 @@ $site_title = 'aqoli - Quality of Life';
 
       <div class="footer">
         <ul class="bottom-links">
-          <li>About Us</li>
-          <li>Contact Information</li>
+          <li class="footer-links"><a href="aboutus.html">About Us</a></li>
+          <li><a href="mailto:aqoli2021info@gmail.com">Contact Us</a></li>
           <li>Copyright © 2021 by CCSF</li>
         </ul>
       </div>

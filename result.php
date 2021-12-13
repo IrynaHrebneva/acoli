@@ -5,12 +5,12 @@ $db = new SQLite3('aqoli.db');
 ?>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aqoli - Quiz Results</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="shortcut icon" type="image/jpg" href="website_logo.jpg"/>
 </head>
 <body>
     <div class="header">
@@ -19,7 +19,8 @@ $db = new SQLite3('aqoli.db');
             <div class="title"> <a href="index.php">Aqoli</a></div>
           </div>
           <ul class="navbar">
-            <li class="navbar-links"><a href="qualityoflife.html">Quality of Life</a></li>
+            <li class="navbar-links"><a href="about.html">About</a></li>
+            <li class="navbar-links"><a href="qualityoflife.php">Quality of Life</a></li>
             <li class="navbar-links"><a href="citycompare.php">City Compare</a></li>
             <li class="navbar-links"><a href="myplacequiz.php">My Place Quiz</a></li>
           </ul>
@@ -219,8 +220,8 @@ $db = new SQLite3('aqoli.db');
 
       <div class="footer">
         <ul class="bottom-links">
-          <li>About Us</li>
-          <li>Contact Information</li>
+	  <li class="footer-links"><a href="aboutus.html">About Us</a></li>
+          <li><a href="mailto:aqoli2021info@gmail.com">Contact Us</a></li>
           <li>Copyright © 2021 by CCSF</li>
         </ul>
       </div>
